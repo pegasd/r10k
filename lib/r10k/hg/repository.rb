@@ -18,6 +18,15 @@ class R10K::HG::Repository
   #   @return [String] The name of the directory
   attr_reader :dirname
 
+  private
+
+  # Pull changes from the given hg repository
+  #
+  # @param source [#to_s] The source repository to pull from
+  def pull(source = 'default')
+    hg ['pull', source]
+  end
+
   # Wrap hg commands
   #
   # @param cmd [Array<String>] cmd The arguments for the hg prompt
