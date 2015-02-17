@@ -74,6 +74,7 @@ class R10K::HG::WorkingDir < R10K::HG::Repository
   def cloned?
     File.directory? @hg_dir
   end
+  alias :hg? :cloned?
 
   # Does a directory exist where we expect a working dir to be?
   # @return [true, false]
