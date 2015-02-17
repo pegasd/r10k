@@ -18,6 +18,13 @@ class R10K::HG::Repository
   #   @return [String] The name of the directory
   attr_reader :dirname
 
+  # Resolve a revision to a hg commit. The given revision can be a changeset,
+  # tag, or a local or remote branch
+  #
+  # @param [String] rev
+  #
+  # @return [String] The dereferenced hash of `rev`
+
   def resolve_rev(rev)
     output = hg ['id', '-r', rev, '--debug'], :raise_on_fail => false
 
@@ -26,7 +33,7 @@ class R10K::HG::Repository
       cset_id
     else
       raise R10K::HG::UnresolvableRevError.new("Could not resolve HG revision '#{rev}'",
-                                               :rev => rev, :basedir => basedir)
+                                               :rev => rev, :dir => basedir)
     end
   end
 
