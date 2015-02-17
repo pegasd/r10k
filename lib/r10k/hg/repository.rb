@@ -4,11 +4,11 @@ require 'r10k/util/subprocess'
 # Define an abstract base class for hg repositories.
 class R10K::HG::Repository
 
-  # @!attribute [r] source
+  # @!attribute [r] remote
   #   Either the pathname of a local repository or the URI of a remote
   #   repository
   #   @return [String] The pathname or URI to the hg repository
-  attr_reader :source
+  attr_reader :remote
 
   # @!attribute [r] basedir
   #   @return [String] The directory containing the repository
