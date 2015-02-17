@@ -18,24 +18,15 @@ class R10K::HG::Repository
   #   @return [String] The name of the directory
   attr_reader :dirname
 
-  def resolve_tag(tag)
-    return resolve('tags', tag)
-  end
-
-  def resolve_branch(branch)
-    return resolve('branches', branch)
-  end
-
-  def resolve_changeset(changeset)
-    return to_node_id(changeset)
-  end
-
-  def resolve_latest_tag()
-    output = hg ['log', '-r', '"max(tagged())"', '--template',
-                 '"{node}\\n"'], :raise_on_fail => false
+  def resolve_rev(rev)
+    output = hg ['id', '-r', rev, '--debug'], :raise_on_fail => false
 
     if output.success?
-      output.stdout.lines.first
+      cset_id, _, name = output.stdout.lines.first.partition(/\s+/)
+      cset_id
+    else
+      raise R10K::HG::UnresolvableRevError.new("Could not resolve HG revision '#{rev}'",
+                                               :rev => rev, :basedir => basedir)
     end
   end
 
@@ -62,32 +53,6 @@ class R10K::HG::Repository
   end
 
   private
-
-  def resolve(command, name)
-    output = hg [command]
-
-    output.stdout.each_line do |line|
-      hg_name, _, changeset = line.partition(/\s+/)
-      if hg_name == name
-        _, id = parse_changeset(changeset)
-        return to_node_id(id)
-      end
-    end
-  end
-
-  def parse_changeset(changeset)
-    rev, _, id = changeset.partition(/\:/)
-    rev, id
-  end
-
-  def to_node_id(id)
-    output = hg ['log', '-r', id, '--template',
-                 '"{node}\\n"'], :raise_on_fail => false
-
-    if output.success?
-      output.stdout.lines.first
-    end
-  end
 
   def list(command)
     entries = []

@@ -5,21 +5,21 @@ module R10K
 
     class HGError < R10K::Error; end
 
-    class UnresolvableChangesetError < HGError
+    class UnresolvableRevError < HGError
 
-      attr_reader :changeset
-      attr_reader :hg_dir
+      attr_reader :rev
+      attr_reader :dir
 
       def initialize(mesg, options = {})
         super
-        @changeset = @options[:changeset]
-        @hg_dir    = @options[:hg_dir]
+        @rev = @options[:rev]
+        @dir = @options[:dir]
       end
 
       def message
         msg = super
-        if @hg_dir
-          msg << " at #{@hg_dir}"
+        if @dir
+          msg << " at #{@dir}"
         end
         msg
       end
