@@ -24,7 +24,6 @@ class R10K::HG::Repository
   # @param [String] rev
   #
   # @return [String] The dereferenced hash of `rev`
-
   def resolve_rev(rev)
     output = hg ['id', '-r', rev, '--debug'], :raise_on_fail => false
 
