@@ -1,8 +1,8 @@
 require 'r10k/hg/rev'
 require 'r10k/hg/repository'
 
-# changeset: A changeset is an atomic collection of changes to files in a
-# repository.
+# A changeset is an atomic collection of changes to files in a repository.
+#
 # @see http://mercurial.selenic.com/wiki/ChangeSet
 # @api private
 class R10K::HG::Changeset < R10K::HG::Rev

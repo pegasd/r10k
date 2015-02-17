@@ -1,7 +1,7 @@
 require 'r10k/hg'
 require 'r10k/hg/repository'
 
-# rev: A 40-byte hex representation of a SHA1 or a name that denotes a
+# Revision is a 40-byte hex representation of a SHA1 or a name that denotes a
 # particular object.
 #
 # @see http://mercurial.selenic.com/wiki/CategoryGlossary

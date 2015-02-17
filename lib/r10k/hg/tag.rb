@@ -1,7 +1,7 @@
 require 'r10k/hg/rev'
 require 'r10k/hg/repository'
 
-# tag: A tag is a symbolic identifier for a changeset.
+# A tag is a symbolic identifier for a changeset.
 #
 # @see http://mercurial.selenic.com/wiki/Tag
 # @api private
