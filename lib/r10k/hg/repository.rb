@@ -29,7 +29,7 @@ class R10K::HG::Repository
   #
   # @return [String] The dereferenced hash of `rev`
   def resolve_rev(rev)
-    output = hg ['id', '-r', rev, '-i', '--debug'], :raise_on_fail => false
+    output = hg ['id', '-r', rev, '-i', '--debug'], :path => @path, :raise_on_fail => false
 
     if output.success?
       output.stdout.lines.first
