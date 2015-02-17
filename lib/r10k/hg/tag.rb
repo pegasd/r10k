@@ -18,6 +18,11 @@ class R10K::HG::Tag < R10K::HG::Rev
   end
 
   def fetch?
-    ! resolvable?
+    # If we are tracking a tip, we should always try to fetch a newer version.
+    if tag == 'tip'
+      true
+    else
+      ! resolvable?
+    end
   end
 end
