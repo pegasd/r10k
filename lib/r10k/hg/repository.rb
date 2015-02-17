@@ -31,14 +31,14 @@ class R10K::HG::Repository
       output.stdout.lines.first
     else
       raise R10K::HG::UnresolvableRevError.new("Could not resolve HG revision '#{rev}'",
-                                               :rev => rev, :dir => basedir)
+                                               :rev => rev, :dir => path)
     end
   end
 
   # @return [Hash<String, String>] A hash of remote names and URIs
   # @api private
   def remotes
-    output = hg ['path']
+    output = hg ['path'], :path => @path
 
     ret = {}
     output.stdout.each_line do |line|
@@ -61,7 +61,7 @@ class R10K::HG::Repository
 
   def list(command)
     entries = []
-    output = hg([command]).stdout
+    output = hg([command], :path => @path).stdout
     output.each_line { |line| entries << line.split[0] }
     entries
   end
@@ -70,7 +70,7 @@ class R10K::HG::Repository
   #
   # @param remote [#to_s] The remote name to pull from
   def pull(remote = 'default')
-    hg ['pull', remote]
+    hg ['pull', remote], :path => @path
   end
 
   # Wrap hg commands
