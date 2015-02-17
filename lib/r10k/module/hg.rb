@@ -79,6 +79,11 @@ class R10K::Module::HG < R10K::Module::Base
       @changeset = R10K::HG::Tag.new(options.delete(:tag))
     end
 
+    if options[:latest_tag]
+      options.delete(:latest_tag)
+      @changeset = R10K::HG::Tag.new('max(tagged())')
+    end
+
     if options[:changeset]
       @changeset = R10K::HG::Changeset.new(options.delete(:changeset))
     end
