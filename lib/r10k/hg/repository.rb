@@ -25,11 +25,10 @@ class R10K::HG::Repository
   #
   # @return [String] The dereferenced hash of `rev`
   def resolve_rev(rev)
-    output = hg ['id', '-r', rev, '--debug'], :raise_on_fail => false
+    output = hg ['id', '-r', rev, '-i', '--debug'], :raise_on_fail => false
 
     if output.success?
-      cset_id, _, name = output.stdout.lines.first.partition(/\s+/)
-      cset_id
+      output.stdout.lines.first
     else
       raise R10K::HG::UnresolvableRevError.new("Could not resolve HG revision '#{rev}'",
                                                :rev => rev, :dir => basedir)
