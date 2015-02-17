@@ -17,8 +17,8 @@ class R10K::HG::Tag < R10K::HG::Rev
     @repository = repository
   end
 
-  def fetch?
-    # If we are tracking a tip, we should always try to fetch a newer version.
+  def pull?
+    # If we are tracking a tip, we should always try to pull a newer version.
     if tag == 'tip'
       true
     else

@@ -52,7 +52,7 @@ class R10K::HG::Cache < R10K::HG::Repository
 
   def sync!
     if cached?
-      fetch
+      pull
     else
       logger.debug "Creating new HG cache for #{@remote.inspect}"
 

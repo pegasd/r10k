@@ -17,9 +17,9 @@ class R10K::HG::Branch < R10K::HG::Rev
     @repository = repository
   end
 
-  # If we are tracking a branch, we should always try to fetch a newer version
+  # If we are tracking a branch, we should always try to pull a newer version
   # of that branch.
-  def fetch?
+  def pull?
     true
   end
 end

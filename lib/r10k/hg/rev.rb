@@ -30,11 +30,11 @@ class R10K::HG::Rev
     false
   end
 
-  # Should we try to fetch this revision?
+  # Should we try to pull this revision?
   #
   # Since we don't know the type of this revision, we have to assume that it
   # might be a tag or a branch and always update accordingly.
-  def fetch?
+  def pull?
     true
   end
 

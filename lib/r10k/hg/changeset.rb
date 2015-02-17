@@ -17,7 +17,7 @@ class R10K::HG::Changeset < R10K::HG::Rev
     @repository = repository
   end
 
-  def fetch?
+  def pull?
     ! resolvable?
   end
 end
