@@ -34,8 +34,8 @@ class R10K::HG::WorkingDir < R10K::HG::Repository
     @basedir = basedir
     @dirname = dirname || rev
 
-    @full_path = File.join(@basedir, @dirname)
-    @hg_dir    = File.join(@full_path, '.hg')
+    @path      = File.join(@basedir, @dirname)
+    @hg_dir    = File.join(@path, '.hg')
     @hgrc_file = File.join(@hg_dir, 'hgrc')
 
     @cache = R10K::HG::Cache.generate(@remote)
@@ -79,14 +79,14 @@ class R10K::HG::WorkingDir < R10K::HG::Repository
   # Does a directory exist where we expect a working dir to be?
   # @return [true, false]
   def exist?
-    File.directory? @full_path
+    File.directory? @path
   end
 
   # check out the given revision
   #
   # @param rev [R10K::HG::Rev] The hg revision to check out
   def checkout(rev)
-    hg ["checkout", "--clean", @rev.sha1], :path => @full_path
+    hg ["checkout", "--clean", @rev.sha1], :path => @path
   rescue => e
     raise R10K::HG::HGError.wrap(e, "Cannot check out HG revision '#{@rev}'")
   end
@@ -124,7 +124,7 @@ class R10K::HG::WorkingDir < R10K::HG::Repository
   # Perform a clone of a hg repository
   def clone
     @cache.sync
-    hg ["clone", @cache.path, @full_path]
+    hg ["clone", @cache.path, @path]
     update_remotes
     checkout(@rev)
   end
