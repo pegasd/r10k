@@ -18,6 +18,10 @@ class R10K::HG::Repository
   #   @return [String] The name of the directory
   attr_reader :dirname
 
+  # @!attribute [r] path
+  #   @return [String] The path to the hg repository
+  attr_reader :path
+
   # Resolve a revision to a hg commit. The given revision can be a changeset,
   # tag, or a local or remote branch
   #

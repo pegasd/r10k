@@ -13,10 +13,6 @@ class R10K::HG::Cache < R10K::HG::Repository
 
   def_setting_attr :cache_root, File.expand_path(ENV['HOME'] ? '~/.r10k/hg': '/root/.r10k/hg')
 
-  # @!attribute [r] path
-  #   @return [String] The path to the hg cache repository
-  attr_reader :path
-
   # Lazily construct an instance cache for R10K::HG::Cache objects
   # @api private
   def self.instance_cache
