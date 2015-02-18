@@ -82,7 +82,7 @@ class R10K::HG::Repository
 
   def list(command)
     entries = []
-    output = hg([command], :path => @path).stdout
+    output = hg([command, '--debug'], :path => @path).stdout
     output.each_line { |line| entries << line.split[0] }
     entries
   end
