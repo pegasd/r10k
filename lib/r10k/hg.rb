@@ -1,5 +1,5 @@
 module R10K
-  module HG
+  module Hg
     require 'r10k/hg/errors'
 
     require 'r10k/hg/rev'
