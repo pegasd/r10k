@@ -186,7 +186,8 @@ appropriately secured.
 
 ### Hg
 
-Modules can be installed via Hg.
+Modules can be installed via Hg. When Hg is used, the module version can be
+specified by using `:branch`, `:changeset`, and `:tag`.
 
 #### Examples
 
