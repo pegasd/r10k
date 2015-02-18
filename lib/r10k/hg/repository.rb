@@ -29,10 +29,11 @@ class R10K::HG::Repository
   #
   # @return [String] The dereferenced hash of `rev`
   def resolve_rev(rev)
-    output = hg ['id', '-r', rev, '-i', '--debug'], :path => @path, :raise_on_fail => false
+    changeset   = resolve_rev_local(rev)
+    changeset ||= resolve_rev_remote(rev)
 
-    if output.success?
-      output.stdout.lines.first
+    if changeset
+      changeset
     else
       raise R10K::HG::UnresolvableRevError.new("Could not resolve HG revision '#{rev}'",
                                                :rev => rev, :dir => path)
@@ -62,6 +63,22 @@ class R10K::HG::Repository
   end
 
   private
+
+  def resolve_rev_common(cmd)
+    output = hg cmd, :path => @path, :raise_on_fail => false
+
+    if output.success?
+      output.stdout.lines.first
+    end
+  end
+
+  def resolve_rev_local(rev)
+    return resolve_rev_common ['id', '-r', rev, '-i', '--debug']
+  end
+
+  def resolve_rev_remote(rev, remote = 'default')
+    return resolve_rev_common ['id', '-r', rev, '-i', '--debug', remote]
+  end
 
   def list(command)
     entries = []
