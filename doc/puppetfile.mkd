@@ -88,7 +88,7 @@ Module types
 ------------
 
 r10k can install Puppet modules from a number of different sources. Right now
-modules can be installed via Git, SVN, and from the Puppet Forge.
+modules can be installed via Git, SVN, Hg, and from the Puppet Forge.
 
 ### Git
 
@@ -185,6 +185,8 @@ choose to supply SVN credentials make sure that the system running r10k is
 appropriately secured.
 
 ### Hg
+
+Modules can be installed via Hg.
 
 #### Examples
 
