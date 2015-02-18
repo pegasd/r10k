@@ -69,7 +69,7 @@ Update a single module across all environments:
 This is useful for when you're working on a module specified in a Puppetfile
 and want to update it across all environments. See
 [Puppetfile documentation](doc/puppetfile.mkd) for details on how this affects
-Forge vs. Git/SVN modules.
+Forge vs. Git/SVN/Hg modules.
 
 - - -
 
