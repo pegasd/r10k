@@ -6,14 +6,14 @@ require 'r10k/hg/repository'
 #
 # @see http://mercurial.selenic.com/wiki/CategoryGlossary
 # @api private
-class R10K::HG::Rev
+class R10K::Hg::Rev
 
   # @!attribute [r] rev
   #   @return [String] The hg revision
   attr_reader :rev
 
   # @!attribute [rw] repository
-  #   @return [R10K::HG::Repository] A hg repository that can be used to
+  #   @return [R10K::Hg::Repository] A hg repository that can be used to
   #     resolve the hg revision to a changeset.
   attr_accessor :repository
 
@@ -26,7 +26,7 @@ class R10K::HG::Rev
   def resolvable?
     sha1
     true
-  rescue R10K::HG::UnresolvableRevError
+  rescue R10K::Hg::UnresolvableRevError
     false
   end
 
@@ -40,15 +40,15 @@ class R10K::HG::Rev
 
   def sha1
     if @repository.nil?
-      raise ArgumentError, "Cannot resolve #{self.inspect}: no associated HG repository"
+      raise ArgumentError, "Cannot resolve #{self.inspect}: no associated Hg repository"
     else
       @repository.resolve_rev(rev)
     end
   end
 
   def ==(other)
-    other.is_a?(R10K::HG::Rev) && other.sha1 == self.sha1
-  rescue ArgumentError, R10K::HG::UnresolvableRevError
+    other.is_a?(R10K::Hg::Rev) && other.sha1 == self.sha1
+  rescue ArgumentError, R10K::Hg::UnresolvableRevError
     false
   end
 

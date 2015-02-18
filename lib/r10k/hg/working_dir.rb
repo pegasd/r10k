@@ -4,18 +4,18 @@ require 'r10k/hg'
 require 'r10k/hg/cache'
 
 # Implements hg working repository
-class R10K::HG::WorkingDir < R10K::HG::Repository
+class R10K::Hg::WorkingDir < R10K::Hg::Repository
 
   include R10K::Logging
 
   extend Forwardable
 
   # @!attribute [r] cache
-  #   @return [R10K::HG::Cache] The cache backing this working directory
+  #   @return [R10K::Hg::Cache] The cache backing this working directory
   attr_reader :cache
 
   # @!attribute [r] rev
-  #   @return [R10K::HG::Rev] The hg revision to use check out in the given directory
+  #   @return [R10K::Hg::Rev] The hg revision to use check out in the given directory
   attr_reader :rev
 
   # @!attribute [r] remote
@@ -24,7 +24,7 @@ class R10K::HG::WorkingDir < R10K::HG::Repository
 
   # Create a new hg working directory
   #
-  # @param rev     [String, R10K::HG::Rev]
+  # @param rev     [String, R10K::Hg::Rev]
   # @param remote  [String]
   # @param basedir [String]
   # @param dirname [String]
@@ -38,10 +38,10 @@ class R10K::HG::WorkingDir < R10K::HG::Repository
     @hg_dir    = File.join(@path, '.hg')
     @hgrc_file = File.join(@hg_dir, 'hgrc')
 
-    @cache = R10K::HG::Cache.generate(@remote)
+    @cache = R10K::Hg::Cache.generate(@remote)
 
     if rev.is_a? String
-      @rev = R10K::HG::Rev.new(rev, self)
+      @rev = R10K::Hg::Rev.new(rev, self)
     else
       @rev = rev
       @rev.repository = self
@@ -84,18 +84,18 @@ class R10K::HG::WorkingDir < R10K::HG::Repository
 
   # check out the given revision
   #
-  # @param rev [R10K::HG::Rev] The hg revision to check out
+  # @param rev [R10K::Hg::Rev] The hg revision to check out
   def checkout(rev)
     hg ["checkout", "--clean", @rev.sha1], :path => @path
   rescue => e
-    raise R10K::HG::HGError.wrap(e, "Cannot check out HG revision '#{@rev}'")
+    raise R10K::Hg::HgError.wrap(e, "Cannot check out Hg revision '#{@rev}'")
   end
 
   # The currently checked out revision
   #
-  # @return [R10K::HG::Changeset]
+  # @return [R10K::Hg::Changeset]
   def current
-    R10K::HG::Changeset.new('', self)
+    R10K::Hg::Changeset.new('', self)
   end
 
   def outdated?

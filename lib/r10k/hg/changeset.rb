@@ -5,7 +5,7 @@ require 'r10k/hg/repository'
 #
 # @see http://mercurial.selenic.com/wiki/ChangeSet
 # @api private
-class R10K::HG::Changeset < R10K::HG::Rev
+class R10K::Hg::Changeset < R10K::Hg::Rev
 
   # @!attribute [r] changeset
   #   @return [String] The hg changeset

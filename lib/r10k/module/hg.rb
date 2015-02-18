@@ -1,7 +1,7 @@
 require 'r10k/module'
 require 'r10k/hg'
 
-class R10K::Module::HG < R10K::Module::Base
+class R10K::Module::Hg < R10K::Module::Base
 
   R10K::Module.register(self)
 
@@ -13,13 +13,13 @@ class R10K::Module::HG < R10K::Module::Base
 
   # @!attribute [r] working_dir
   #   @api private
-  #   @return [R10K::HG::WorkingDir]
+  #   @return [R10K::Hg::WorkingDir]
   attr_reader :working_dir
 
   def initialize(title, dirname, args)
     super
     parse_options(@args)
-    @working_dir = R10K::HG::WorkingDir.new(@changeset, @remote, @dirname, @name)
+    @working_dir = R10K::Hg::WorkingDir.new(@changeset, @remote, @dirname, @name)
   end
 
   def properties
@@ -72,7 +72,7 @@ class R10K::Module::HG < R10K::Module::Base
     @remote = options.delete(:hg)
 
     if options[:branch]
-      @changeset = R10K::HG::Branch.new(options.delete(:branch))
+      @changeset = R10K::Hg::Branch.new(options.delete(:branch))
     end
 
     if options[:tag]
@@ -80,14 +80,14 @@ class R10K::Module::HG < R10K::Module::Base
       if tag == 'LATEST'
         tag = 'max(tagged())'
       end
-      @changeset = R10K::HG::Tag.new(tag)
+      @changeset = R10K::Hg::Tag.new(tag)
     end
 
     if options[:changeset]
-      @changeset = R10K::HG::Changeset.new(options.delete(:changeset))
+      @changeset = R10K::Hg::Changeset.new(options.delete(:changeset))
     end
 
-    @changeset ||= R10K::HG::Tag.new('tip')
+    @changeset ||= R10K::Hg::Tag.new('tip')
 
     unless options.empty?
       raise ArgumentError, "Unhandled options #{options.keys.inspect} specified for #{self.class}"

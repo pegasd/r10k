@@ -5,7 +5,7 @@ require 'r10k/hg/repository'
 #
 # @see http://mercurial.selenic.com/wiki/Tag
 # @api private
-class R10K::HG::Tag < R10K::HG::Rev
+class R10K::Hg::Tag < R10K::Hg::Rev
 
   # @!attribute [r] tag
   #   @return [String] The hg tag

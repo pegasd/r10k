@@ -5,7 +5,7 @@ require 'r10k/hg/repository'
 #
 # @see http://mercurial.selenic.com/wiki/Branch
 # @api private
-class R10K::HG::Branch < R10K::HG::Rev
+class R10K::Hg::Branch < R10K::Hg::Rev
 
   # @!attribute [r] branch
   #   @return [String] The hg branch

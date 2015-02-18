@@ -1,11 +1,11 @@
 require 'r10k/errors'
 
 module R10K
-  module HG
+  module Hg
 
-    class HGError < R10K::Error; end
+    class HgError < R10K::Error; end
 
-    class UnresolvableRevError < HGError
+    class UnresolvableRevError < HgError
 
       attr_reader :rev
       attr_reader :dir

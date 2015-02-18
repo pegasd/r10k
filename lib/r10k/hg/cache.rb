@@ -7,24 +7,24 @@ require 'r10k/registry'
 # Mirror a hg repository for caching
 #
 # @see hg help clone
-class R10K::HG::Cache < R10K::HG::Repository
+class R10K::Hg::Cache < R10K::Hg::Repository
 
   include R10K::Settings::Mixin
 
   def_setting_attr :cache_root, File.expand_path(ENV['HOME'] ? '~/.r10k/hg': '/root/.r10k/hg')
 
-  # Lazily construct an instance cache for R10K::HG::Cache objects
+  # Lazily construct an instance cache for R10K::Hg::Cache objects
   # @api private
   def self.instance_cache
     @instance_cache ||= R10K::InstanceCache.new(self)
   end
 
   # Generate a new instance with the given remote or return an existing object
-  # with the given remote. This should be used over R10K::HG::Cache.new.
+  # with the given remote. This should be used over R10K::Hg::Cache.new.
   #
   # @api public
   # @param remote [String] The hg remote to cache
-  # @return [R10K::HG::Cache] The requested cache object.
+  # @return [R10K::Hg::Cache] The requested cache object.
   def self.generate(remote)
     instance_cache.generate(remote)
   end
@@ -50,7 +50,7 @@ class R10K::HG::Cache < R10K::HG::Repository
     if cached?
       pull
     else
-      logger.debug "Creating new HG cache for #{@remote.inspect}"
+      logger.debug "Creating new Hg cache for #{@remote.inspect}"
 
       # TODO extract this to an initialization step
       unless File.exist? settings[:cache_root]
@@ -60,7 +60,7 @@ class R10K::HG::Cache < R10K::HG::Repository
       hg ['clone', @remote, path]
     end
   rescue R10K::Util::Subprocess::SubprocessError => e
-    raise R10K::HG::HGError.wrap(e, "Couldn't update HG cache for #{@remote}")
+    raise R10K::Hg::HgError.wrap(e, "Couldn't update Hg cache for #{@remote}")
   end
 
   # @return [true, false] If the repository has been locally cached

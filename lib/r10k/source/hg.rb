@@ -3,12 +3,12 @@ require 'r10k/environment'
 require 'r10k/util/purgeable'
 require 'r10k/util/core_ext/hash_ext'
 
-# This class implements a source for HG environments.
+# This class implements a source for Hg environments.
 #
-# A HG source generates environments by locally caching the given HG
-# repository and enumerating the branches for the HG repository. Branches
+# A Hg source generates environments by locally caching the given Hg
+# repository and enumerating the branches for the Hg repository. Branches
 # are mapped to environments without modification.
-class R10K::Source::HG < R10K::Source::Base
+class R10K::Source::Hg < R10K::Source::Base
 
   include R10K::Logging
 
@@ -20,7 +20,7 @@ class R10K::Source::HG < R10K::Source::Base
 
   # @!attribute [r] cache
   #   @api private
-  #   @return [R10K::HG::Cache] The hg cache associated with this source
+  #   @return [R10K::Hg::Cache] The hg cache associated with this source
   attr_reader :cache
 
   # @!attribute [r] settings
@@ -29,7 +29,7 @@ class R10K::Source::HG < R10K::Source::Base
   attr_reader :settings
 
   # @!attribute [r] invalid_branches
-  #   @return [String] How HG branch names that cannot be cleanly mapped to
+  #   @return [String] How Hg branch names that cannot be cleanly mapped to
   #     Puppet environments will be handled.
   attr_reader :invalid_branches
 
@@ -52,14 +52,14 @@ class R10K::Source::HG < R10K::Source::Base
     @remote           = options[:remote]
     @invalid_branches = (options[:invalid_branches] || 'correct_and_warn')
 
-    @cache  = R10K::HG::Cache.generate(@remote)
+    @cache  = R10K::Hg::Cache.generate(@remote)
   end
 
   # Update the hg cache for this hg source to get the latest list of environments.
   #
   # @return [void]
   def preload!
-    logger.debug "Determining current branches for HG source #{@remote.inspect}"
+    logger.debug "Determining current branches for Hg source #{@remote.inspect}"
     @cache.sync
   end
 
@@ -81,11 +81,11 @@ class R10K::Source::HG < R10K::Source::Base
     envs = []
     branch_names.each do |bn|
       if bn.valid?
-        envs << R10K::Environment::HG.new(bn.name, @basedir, bn.dirname,
+        envs << R10K::Environment::Hg.new(bn.name, @basedir, bn.dirname,
                                           {:remote => remote, :rev => bn.name})
       elsif bn.correct?
        logger.warn "Environment #{bn.name.inspect} contained non-word characters, correcting name to #{bn.dirname}"
-        envs << R10K::Environment::HG.new(bn.name, @basedir, bn.dirname,
+        envs << R10K::Environment::Hg.new(bn.name, @basedir, bn.dirname,
                                        {:remote => remote, :rev => bn.name})
       elsif bn.validate?
        logger.error "Environment #{bn.name.inspect} contained non-word characters, ignoring it."

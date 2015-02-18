@@ -2,8 +2,8 @@ require 'r10k/logging'
 require 'r10k/puppetfile'
 require 'r10k/hg/working_dir'
 
-# This class implements an environment based on a HG branch.
-class R10K::Environment::HG < R10K::Environment::Base
+# This class implements an environment based on a Hg branch.
+class R10K::Environment::Hg < R10K::Environment::Base
 
   include R10K::Logging
 
@@ -17,10 +17,10 @@ class R10K::Environment::HG < R10K::Environment::Base
 
   # @!attribute [r] working_dir
   #   @api private
-  #   @return [R10K::HG::WorkingDir] The hg working directory backing this environment
+  #   @return [R10K::Hg::WorkingDir] The hg working directory backing this environment
   attr_reader :working_dir
 
-  # Initialize the given HG environment.
+  # Initialize the given Hg environment.
   #
   # @param name [String] The unique name describing this environment.
   # @param basedir [String] The base directory where this environment will be created.
@@ -34,10 +34,10 @@ class R10K::Environment::HG < R10K::Environment::Base
     @remote = options[:remote]
     @rev    = options[:rev]
 
-    @working_dir = R10K::HG::WorkingDir.new(@rev, @remote, @basedir, @dirname)
+    @working_dir = R10K::Hg::WorkingDir.new(@rev, @remote, @basedir, @dirname)
   end
 
-  # Clone or update the given HG environment.
+  # Clone or update the given Hg environment.
   #
   # If the environment is being created for the first time, it will
   # automatically update all modules to ensure that the environment is complete.

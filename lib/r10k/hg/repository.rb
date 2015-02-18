@@ -2,7 +2,7 @@ require 'r10k/hg'
 require 'r10k/util/subprocess'
 
 # Define an abstract base class for hg repositories.
-class R10K::HG::Repository
+class R10K::Hg::Repository
 
   # @!attribute [r] remote
   #   Either the pathname of a local repository or the URI of a remote
@@ -35,7 +35,7 @@ class R10K::HG::Repository
     if changeset
       changeset
     else
-      raise R10K::HG::UnresolvableRevError.new("Could not resolve HG revision '#{rev}'",
+      raise R10K::Hg::UnresolvableRevError.new("Could not resolve Hg revision '#{rev}'",
                                                :rev => rev, :dir => path)
     end
   end
