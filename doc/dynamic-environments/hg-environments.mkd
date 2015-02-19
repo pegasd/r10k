@@ -1,0 +1,47 @@
+Hg Based Dynamic Environments
+=============================
+
+R10k can use Hg repositories to implement dynamic environments. You can create,
+update, and delete Puppet environments automatically as part of your normal Hg
+workflow.
+
+How it works
+------------
+
+R10k implements a Hg branching [workflow similar to Git](git-environments.mkd).
+
+Configuration
+-------------
+
+The following configuration options can be specified for Hg based environment
+sources.
+
+### invalid_branches:
+
+This setting specifies how Hg branch names that cannot be cleanly mapped to
+Puppet environments will be handled.
+
+Valid values:
+
+  * 'correct_and_warn': Non-word characters will be replaced with underscores
+    and a warning will be emitted. (Default)
+  * 'correct': Non-word characters will silently be replaced with underscores.
+  * 'error': Branches with non-word characters will be ignored and an error will
+    be emitted.
+
+Example
+-------
+
+```yaml
+# The location to use for storing cached repos
+:cachedir: '/var/cache/r10k'
+
+# A list of repositories to create
+:sources:
+  # This will clone the repository and instantiate an environment per
+  # branch in /etc/puppet/environments
+  :myorg:
+    type: hg
+    remote: 'https://hg.example.org/examples/myorg'
+    basedir: '/etc/puppet/environments'
+```
