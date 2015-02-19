@@ -8,7 +8,7 @@ workflow.
 How it works
 ------------
 
-R10k implements a Hg branching [workflow similar to Git](git-environments.mkd).
+R10k implements a Hg branching workflow [similar to Git](git-environments.mkd).
 
 Configuration
 -------------
