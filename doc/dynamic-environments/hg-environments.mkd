@@ -33,6 +33,9 @@ Example
 -------
 
 ```yaml
+---
+# /etc/r10k.yaml
+
 # The location to use for storing cached repos
 :cachedir: '/var/cache/r10k'
 
