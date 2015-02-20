@@ -1,5 +1,4 @@
 require 'forwardable'
-require 'inifile'
 require 'r10k/hg'
 require 'r10k/hg/cache'
 
@@ -153,8 +152,6 @@ class R10K::Hg::WorkingDir < R10K::Hg::Repository
   end
 
   def update_remotes
-    hgrc = IniFile.load(@hgrc_file)
-    hgrc['paths'] = { 'default' => remote, 'cache' => @cache.path}
-    hgrc.write
+    File.write(@hgrc_file, "[paths]\ndefault = #{remote}\ncache = #{@cache.path}\n")
   end
 end
