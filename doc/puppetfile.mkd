@@ -218,7 +218,7 @@ Install module and keep it up to date with the latest tag
 
     mod 'my-module',
       :hg  => 'https://hg.example.org/examples/my-module',
-      :tag => 'LATEST'
+      :tag => ':latest'
 
 ## Environment variables
 
