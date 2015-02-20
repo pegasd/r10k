@@ -111,6 +111,8 @@ class R10K::Hg::Repository
 
     argv = %w{hg}
 
+    argv << "--noninteractive"
+
     if opts[:path]
       argv << "--cwd" << opts[:path]
     end
