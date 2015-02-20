@@ -152,6 +152,7 @@ class R10K::Hg::WorkingDir < R10K::Hg::Repository
   end
 
   def update_remotes
-    File.write(@hgrc_file, "[paths]\ndefault = #{remote}\ncache = #{@cache.path}\n")
+    File.open(@hgrc_file, 'w') { |file| \
+      file.write("[paths]\ndefault = #{remote}\ncache = #{@cache.path}\n") }
   end
 end
