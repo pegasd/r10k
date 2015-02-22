@@ -220,6 +220,12 @@ Install module and keep it up to date with the latest tag
       :hg  => 'https://hg.example.org/examples/my-module',
       :tag => ':latest'
 
+### Local
+
+You can define manually managed modules using the `:local` type.
+
+    mod 'my-module', :local
+
 ## Environment variables
 
 It is possible to set an alternate name/location for your `Puppetfile` and

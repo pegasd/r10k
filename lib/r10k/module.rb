@@ -34,4 +34,5 @@ module R10K::Module
   require 'r10k/module/svn'
   require 'r10k/module/forge'
   require 'r10k/module/hg'
+  require 'r10k/module/local'
 end
