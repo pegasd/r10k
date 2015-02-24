@@ -18,8 +18,9 @@ class R10K::Hg::Tag < R10K::Hg::Rev
   end
 
   def pull?
-    # If we are tracking a tip, we should always try to pull a newer version.
-    if tag == 'tip'
+    # If we are tracking a float tag, we should always try to pull a
+    # newer version.
+    if tag == 'tip' || tag == 'max(tagged())'
       true
     else
       ! resolvable?
