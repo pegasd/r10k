@@ -43,8 +43,8 @@ Example
 :sources:
   # This will clone the repository and instantiate an environment per
   # branch in /etc/puppet/environments
-  :my-org:
+  :myorg:
     type: hg
-    remote: 'https://hg.example.org/examples/my-org'
+    remote: 'https://hg.example.org/examples/myorg'
     basedir: '/etc/puppet/environments'
 ```
