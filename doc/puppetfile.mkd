@@ -224,7 +224,7 @@ Install module and keep it up to date with the latest tag
 
 You can define manually managed modules using the `:local` type.
 
-    mod 'my-module', :local
+    mod 'mymodule', :local
 
 ## Environment variables
 
