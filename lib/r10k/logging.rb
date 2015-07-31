@@ -16,7 +16,7 @@ module R10K::Logging
   def logger
     unless @logger
       @logger = Log4r::Logger.new(self.logger_name)
-      @logger.add R10K::Logging.outputter
+      @logger.add R10K::Logging.outputter, R10K::Logging.outputter_err
     end
     @logger
   end
@@ -54,7 +54,12 @@ module R10K::Logging
     def level=(val)
       level = parse_level val
       raise "Invalid log level: #{val}" unless level
-      outputter.level = level
+      outputter.only_at *(level..levels["WARN"])
+      if level > levels["ERROR"]
+        outputter_err.level = level
+      else
+        outputter_err.level = levels["ERROR"]
+      end
       @level = level
     end
 
@@ -63,10 +68,25 @@ module R10K::Logging
     end
 
     def outputter
-      @outputter ||= Log4r::StderrOutputter.new('console',
-        :level => self.level,
-        :formatter => formatter
-       )
+      if @outputter
+        @outputter
+      else
+        outputter = Log4r::StdoutOutputter.new('console',
+                                               :formatter => formatter)
+        outputter.only_at levels["WARN"]
+        @outputter = outputter
+      end
+    end
+
+    def outputter_err
+      if @outputter_err
+        @outputter_err
+      else
+        outputter_err = Log4r::StderrOutputter.new('console',
+                                                   :formatter => formatter)
+        outputter_err.level = levels["ERROR"]
+        @outputter_err = outputter_err
+      end
     end
   end
 end
