@@ -87,7 +87,7 @@ class R10K::Module::Hg < R10K::Module::Base
       @changeset = R10K::Hg::Changeset.new(options.delete(:changeset))
     end
 
-    @changeset ||= R10K::Hg::Tag.new('tip')
+    @changeset ||= R10K::Hg::Branch.new('default')
 
     unless options.empty?
       raise ArgumentError, "Unhandled options #{options.keys.inspect} specified for #{self.class}"
