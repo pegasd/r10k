@@ -60,9 +60,11 @@ class R10K::Hg::WorkingDir < R10K::Hg::Repository
     update_remotes if update_remotes?
 
     if rev_needs_pull?
+      pull_cache
       pull_from_cache
       checkout(@rev)
     elsif needs_checkout?
+      pull_from_cache
       checkout(@rev)
     end
   end
@@ -115,8 +117,11 @@ class R10K::Hg::WorkingDir < R10K::Hg::Repository
     @rev.pull?
   end
 
-  def pull_from_cache
+  def pull_cache
     @cache.sync
+  end
+
+  def pull_from_cache
     pull('cache')
   end
 
