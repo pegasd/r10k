@@ -108,11 +108,6 @@ class R10K::Hg::WorkingDir < R10K::Hg::Repository
 
   private
 
-  # Prefer remote objects from the cache remote over the real remote
-  def resolve_rev_remote(rev, remote = 'cache')
-    super(rev, remote)
-  end
-
   # Do we need to pull additional changesets in order to resolve the
   # given revision?
   # @return [true, false]
