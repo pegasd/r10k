@@ -60,9 +60,11 @@ class R10K::Hg::WorkingDir < R10K::Hg::Repository
     update_remotes if update_remotes?
 
     if rev_needs_pull?
+      pull_cache
       pull_from_cache
       checkout(@rev)
     elsif needs_checkout?
+      pull_from_cache
       checkout(@rev)
     end
   end
@@ -108,11 +110,6 @@ class R10K::Hg::WorkingDir < R10K::Hg::Repository
 
   private
 
-  # Prefer remote objects from the cache remote over the real remote
-  def resolve_rev_remote(rev, remote = 'cache')
-    super(rev, remote)
-  end
-
   # Do we need to pull additional changesets in order to resolve the
   # given revision?
   # @return [true, false]
@@ -120,8 +117,11 @@ class R10K::Hg::WorkingDir < R10K::Hg::Repository
     @rev.pull?
   end
 
-  def pull_from_cache
+  def pull_cache
     @cache.sync
+  end
+
+  def pull_from_cache
     pull('cache')
   end
 
