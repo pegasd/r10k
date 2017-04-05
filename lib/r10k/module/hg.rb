@@ -87,6 +87,10 @@ class R10K::Module::Hg < R10K::Module::Base
       @changeset = R10K::Hg::Changeset.new(options.delete(:changeset))
     end
 
+    if options[:rev]
+      @changeset = R10K::Hg::Rev.new(options.delete(:rev))
+    end
+
     @changeset ||= R10K::Hg::Branch.new('default')
 
     unless options.empty?
