@@ -1,7 +1,7 @@
 require 'r10k/hg/rev'
 require 'r10k/hg/repository'
 
-LATEST_TAG = 'max(tagged())'
+LATEST_TAG = 'max(tag()) and branch(default)'
 
 # A tag is a symbolic identifier for a changeset.
 #
