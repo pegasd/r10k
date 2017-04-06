@@ -226,6 +226,14 @@ Install module and keep it up to date with the latest tag
       :hg  => 'https://hg.example.org/examples/mymodule',
       :tag => ':latest'
 
+Install module from a given revision.
+Hg [revsets](https://www.mercurial-scm.org/repo/hg/help/revsets) can be used. In
+this example the recent tag of the 'devel' branch is tracked.
+
+    mod 'mymodule',
+      :hg  => 'https://hg.example.org/examples/mymodule',
+      :rev => 'max(tag()) and branch(devel)'
+
 ## Environment variables
 
 It is possible to set an alternate name/location for your `Puppetfile` and
