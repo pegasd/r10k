@@ -1,6 +1,8 @@
 require 'r10k/hg/rev'
 require 'r10k/hg/repository'
 
+LATEST_TAG = 'max(tagged())'
+
 # A tag is a symbolic identifier for a changeset.
 #
 # @see http://mercurial.selenic.com/wiki/Tag
@@ -20,7 +22,7 @@ class R10K::Hg::Tag < R10K::Hg::Rev
   def pull?
     # If we are tracking a float tag, we should always try to pull a
     # newer version.
-    if tag == 'tip' || tag == 'max(tagged())'
+    if tag == 'tip' || tag == LATEST_TAG
       true
     else
       ! resolvable?
