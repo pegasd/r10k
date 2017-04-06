@@ -226,13 +226,21 @@ Install module and keep it up to date with the latest tag
       :hg  => 'https://hg.example.org/examples/mymodule',
       :tag => ':latest'
 
+Install module from a given revision.
+Hg [revsets](https://www.mercurial-scm.org/repo/hg/help/revsets) can be used. In
+this example the recent tag of the 'devel' branch is tracked.
+
+    mod 'mymodule',
+      :hg  => 'https://hg.example.org/examples/mymodule',
+      :rev => 'max(tag()) and branch(devel)'
+
 ### Local
 
 In the event you want to store locally written modules in your r10k-managed
-repository rather than storing each in their own repository, you can use 
-the `:local` type. 
+repository rather than storing each in their own repository, you can use
+the `:local` type.
 
-For instance, if you create a module under `modules` with the name `mymodule` 
+For instance, if you create a module under `modules` with the name `mymodule`
 then the following will tell r10k to not manage that module.
 
     mod 'mymodule', :local
