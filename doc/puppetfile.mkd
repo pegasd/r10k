@@ -220,11 +220,12 @@ Install module and keep it up to date with 'tip'
       :hg  => 'https://hg.example.org/examples/mymodule',
       :tag => 'tip'
 
-Install module and keep it up to date with the latest tag
+Install module and keep it up to date with the latest tag from the 'default'
+branch
 
     mod 'mymodule',
       :hg  => 'https://hg.example.org/examples/mymodule',
-      :tag => ':latest'
+      :tag => :latest
 
 Install module from a given revision.
 Hg [revsets](https://www.mercurial-scm.org/repo/hg/help/revsets) can be used. In
