@@ -1,7 +1,10 @@
 require 'r10k/module'
 require 'r10k/hg'
+require 'r10k/logging'
 
 class R10K::Module::Hg < R10K::Module::Base
+
+  include R10K::Logging
 
   R10K::Module.register(self)
 
@@ -77,7 +80,11 @@ class R10K::Module::Hg < R10K::Module::Base
 
     if options[:tag]
       tag = options.delete(:tag)
-      if tag == :latest || tag == ':latest'
+      if tag == :latest
+        tag = LATEST_TAG
+      end
+      if tag == ':latest'
+        logger.warn "Stringified version of the latest tag is deprecated. Use just :latest instead of ':latest'."
         tag = LATEST_TAG
       end
       @changeset = R10K::Hg::Tag.new(tag)
