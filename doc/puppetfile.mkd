@@ -233,7 +233,7 @@ this example the recent tag of the 'devel' branch is tracked.
 
     mod 'mymodule',
       :hg  => 'https://hg.example.org/examples/mymodule',
-      :rev => 'max(tag()) and branch(devel)'
+      :rev => 'max(tag() and branch(devel))'
 
 ## Environment variables
 
