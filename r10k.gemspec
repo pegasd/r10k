@@ -28,7 +28,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'json_pure',  '~> 1.8'
 
   s.add_dependency 'faraday'
-  s.add_dependency 'faraday_middleware',            '~> 0.9.0'
+  s.add_dependency 'faraday_middleware'
   s.add_dependency 'faraday_middleware-multi_json', '~> 0.0.5'
 
   s.add_development_dependency 'rspec', '~> 3.1'
